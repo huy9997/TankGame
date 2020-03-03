@@ -9,23 +9,19 @@ public class Sprite {
     private BufferedImage image;
 
     public Sprite() {
-        this.image = loadImage("src/resources/placeholder.jpg");
+    	this.image = loadImage("resources/placeholder.jpg");
     }
 
-    public Sprite (String path) {
-        this.image = loadImage(path);
-    }
-
+    //Fixed By Jacob Zollinger
     private static BufferedImage loadImage(String path){
-        try {
-            File image = new File(path);
-            return ImageIO.read(image);
-            //returns buffered image.
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
-        return null;
+    	try {
+    		return ImageIO.read(Sprite.class.getClassLoader().getResource(path));
+    		//returns buffered image.
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    		System.exit(1);
+    	}
+    	return null;
     }
 
     public BufferedImage getImage() {
